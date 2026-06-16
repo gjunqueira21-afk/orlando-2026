@@ -2922,16 +2922,12 @@
   <div id="babyPanes"></div>
 
   <h2 class="baby-cat-title">🧺 Enxoval</h2>
-  <div class="baby-cat-hint">Toque para marcar o que já tem em casa</div>
+  <div class="baby-cat-hint">Defina a meta e use − / + para controlar o que já tem</div>
   <div id="babyEnxoval"></div>
   <div class="baby-add-row">
     <input class="baby-add-input" id="babyEnxAdd" placeholder="Adicionar item ao enxoval…">
     <button class="baby-add-btn" id="babyEnxAddBtn">+</button>
   </div>
-
-  <h2 class="baby-cat-title">🏥 Maternidade</h2>
-  <div class="baby-cat-hint">Looks separados para os dias na maternidade · toque na cor para editar</div>
-  <div id="babyMat"></div>
 
   <div class="baby-note">
     💡 Tudo é editável e fica salvo neste aparelho automaticamente. Os números em azul do papel foram preenchidos como meta inicial — os que ficaram em branco é só você completar aqui.
@@ -3207,7 +3203,7 @@
      CASQUINHA — ENXOVAL DA BEBÊ
      ============================================ */
   (function () {
-    const SIZES = ['NewBorn', '03-06', '06-09', '09-12', '12 m', '12-18'];
+    const SIZES = ['NewBorn', '03-06', '06-09', '09-12', '12 m'];
 
     // Roupas: t = metas lidas do papel (números azuis). Em branco = para você preencher.
     const CLOTHES = [
@@ -3232,25 +3228,19 @@
     ];
 
     const ENXOVAL_DEFAULT = [
-      { name: 'Fralda branca', has: false },
-      { name: 'Pano pequeno', has: true },
-      { name: 'Pano de ombro', has: false },
-      { name: 'Pano grande', has: false },
-      { name: 'Toalha de banho', has: false },
-      { name: 'Cueiro flanela', has: true },
-      { name: 'Manta', has: false },
-      { name: 'Lenço de berço', has: false },
-      { name: 'Lençol mini-berço', has: false },
-      { name: 'Lençol carinho', has: false },
+      { name: 'Fralda branca',    meta: 0, bought: 0 },
+      { name: 'Pano pequeno',     meta: 1, bought: 1 },
+      { name: 'Pano de ombro',    meta: 0, bought: 0 },
+      { name: 'Pano grande',      meta: 0, bought: 0 },
+      { name: 'Toalha de banho',  meta: 0, bought: 0 },
+      { name: 'Cueiro flanela',   meta: 1, bought: 1 },
+      { name: 'Manta',            meta: 0, bought: 0 },
+      { name: 'Lenço de berço',   meta: 0, bought: 0 },
+      { name: 'Lençol mini-berço',meta: 0, bought: 0 },
+      { name: 'Lençol carinho',   meta: 0, bought: 0 },
     ];
 
-    const MAT_DEFAULT = [
-      { day: 'Dia 1', color: 'Amarelo', hex: '#F4D35E' },
-      { day: 'Dia 2', color: 'Rosa', hex: '#FFB5A7' },
-      { day: 'Dia 3 · saída', color: 'Vermelho', hex: '#E94F37' },
-    ];
-
-    const KEY = 'casquinha_v1';
+    const KEY = 'casquinha_v2';
     let state = load();
 
     function load() {
@@ -3258,7 +3248,6 @@
         const s = JSON.parse(localStorage.getItem(KEY));
         if (s && s.clothes) return s;
       } catch (e) {}
-      // build fresh
       const clothes = {};
       CLOTHES.forEach(it => {
         clothes[it.name] = {};
@@ -3269,7 +3258,6 @@
       return {
         clothes,
         enxoval: ENXOVAL_DEFAULT.map(e => ({ ...e })),
-        mat: MAT_DEFAULT.map(m => ({ ...m, ready: false })),
       };
     }
 
@@ -3391,17 +3379,50 @@
     function renderEnxoval() {
       enxEl.innerHTML = '';
       state.enxoval.forEach((item, idx) => {
+        const done = item.meta > 0 && item.bought >= item.meta;
         const row = document.createElement('div');
-        row.className = 'baby-check' + (item.has ? ' has' : '');
+        row.className = 'baby-item' + (done ? ' done' : '');
         row.innerHTML = `
-          <div class="baby-check-box">${item.has ? '✓' : ''}</div>
-          <div class="baby-check-name">${item.name}</div>
-          ${item.has ? '<span class="baby-badge-has">Já tem</span>' : ''}`;
-        row.addEventListener('click', () => {
-          item.has = !item.has;
-          save(); renderEnxoval();
-          if (item.has) confetti(false);
+          <div class="baby-item-main">
+            <div class="baby-item-name">${item.name} <span class="check">✓</span></div>
+            <div class="baby-item-meta-row">
+              <span class="baby-meta-label">Meta</span>
+              <input class="baby-meta-input" type="number" min="0" inputmode="numeric" value="${item.meta || ''}" placeholder="–">
+            </div>
+          </div>
+          <div class="baby-stepper">
+            <button class="baby-step-btn minus" aria-label="menos">−</button>
+            <span class="baby-step-count">${item.bought}</span>
+            <button class="baby-step-btn plus" aria-label="mais">+</button>
+          </div>
+          <button class="enx-del" aria-label="remover" style="margin-left:6px;background:none;border:none;font-size:18px;color:rgba(0,0,0,0.2);cursor:pointer;padding:4px;">×</button>`;
+        const metaInput = row.querySelector('.baby-meta-input');
+        const countEl = row.querySelector('.baby-step-count');
+        metaInput.addEventListener('change', () => {
+          item.meta = Math.max(0, parseInt(metaInput.value) || 0);
+          save(); refreshRow(); updateOverall();
         });
+        row.querySelector('.plus').addEventListener('click', () => {
+          const was = item.meta > 0 && item.bought >= item.meta;
+          item.bought++;
+          save(); refreshRow(); updateOverall();
+          if (!was && item.meta > 0 && item.bought >= item.meta) {
+            confetti(false); toast('Meta batida: ' + item.name + ' 🎉');
+          }
+        });
+        row.querySelector('.minus').addEventListener('click', () => {
+          item.bought = Math.max(0, item.bought - 1);
+          save(); refreshRow(); updateOverall();
+        });
+        row.querySelector('.enx-del').addEventListener('click', () => {
+          state.enxoval.splice(idx, 1);
+          save(); renderEnxoval(); updateOverall();
+        });
+        function refreshRow() {
+          countEl.textContent = item.bought;
+          const d = item.meta > 0 && item.bought >= item.meta;
+          row.classList.toggle('done', d);
+        }
         enxEl.appendChild(row);
       });
     }
@@ -3411,33 +3432,9 @@
       const inp = document.getElementById('babyEnxAdd');
       const v = inp.value.trim();
       if (!v) return;
-      state.enxoval.push({ name: v, has: false });
+      state.enxoval.push({ name: v, meta: 0, bought: 0 });
       inp.value = '';
       save(); renderEnxoval();
-    }
-
-    /* ---------- Maternidade ---------- */
-    const matEl = document.getElementById('babyMat');
-    function renderMat() {
-      matEl.innerHTML = '';
-      state.mat.forEach(m => {
-        const card = document.createElement('div');
-        card.className = 'baby-mat';
-        card.innerHTML = `
-          <div class="baby-mat-dot" style="background:${m.hex}"></div>
-          <div class="baby-mat-main">
-            <div class="baby-mat-day">${m.day}</div>
-            <input class="baby-mat-color-input" value="${m.color}" placeholder="cor / look…">
-          </div>
-          <button class="baby-mat-toggle${m.ready ? ' ready' : ''}">${m.ready ? '✓ Pronto' : 'Separar'}</button>`;
-        const inp = card.querySelector('.baby-mat-color-input');
-        inp.addEventListener('change', () => { m.color = inp.value; save(); });
-        card.querySelector('.baby-mat-toggle').addEventListener('click', () => {
-          m.ready = !m.ready; save(); renderMat();
-          if (m.ready) confetti(false);
-        });
-        matEl.appendChild(card);
-      });
     }
 
     /* ---------- Overall progress ---------- */
@@ -3456,7 +3453,6 @@
     renderTabs();
     renderPanes();
     renderEnxoval();
-    renderMat();
     updateOverall();
   })();
 </script>
