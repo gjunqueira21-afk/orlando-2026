@@ -1426,6 +1426,430 @@
     0% { background-position: 200% 0; }
     100% { background-position: -200% 0; }
   }
+
+  /* ============================================
+     CASQUINHA — ENXOVAL DA BEBÊ
+     ============================================ */
+  .baby-hero {
+    background: linear-gradient(135deg, #FFB5A7 0%, #F4A261 100%);
+    border-radius: var(--radius-lg);
+    padding: 22px;
+    color: var(--white);
+    margin-bottom: 18px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+  }
+  .baby-hero::after {
+    content: '👶';
+    position: absolute;
+    right: -10px;
+    bottom: -18px;
+    font-size: 110px;
+    opacity: 0.18;
+    transform: rotate(-8deg);
+  }
+  .baby-hero-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-weight: 700;
+    opacity: 0.9;
+  }
+  .baby-hero-title {
+    font-family: 'Fraunces', serif;
+    font-size: 30px;
+    font-weight: 500;
+    margin-top: 6px;
+    line-height: 1.05;
+  }
+  .baby-hero-sub {
+    font-size: 13px;
+    margin-top: 8px;
+    opacity: 0.95;
+    line-height: 1.5;
+    max-width: 80%;
+  }
+
+  /* Overall progress bar */
+  .baby-overall {
+    background: var(--white);
+    border-radius: var(--radius-md);
+    padding: 16px 18px;
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 18px;
+  }
+  .baby-overall-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 10px;
+  }
+  .baby-overall-top strong {
+    font-family: 'Fraunces', serif;
+    font-size: 16px;
+    font-weight: 500;
+  }
+  .baby-overall-top span {
+    font-size: 13px;
+    color: var(--ink-mute);
+    font-weight: 600;
+  }
+  .baby-bar {
+    height: 10px;
+    border-radius: 999px;
+    background: rgba(0,0,0,0.06);
+    overflow: hidden;
+  }
+  .baby-bar-fill {
+    height: 100%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--teal-light), var(--gold));
+    width: 0%;
+    transition: width 0.5s cubic-bezier(0.16,1,0.3,1);
+  }
+
+  /* Size tabs */
+  .baby-tabs {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding: 4px 0 10px;
+    margin-bottom: 8px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .baby-tabs::-webkit-scrollbar { display: none; }
+  .baby-tab {
+    flex: 0 0 auto;
+    padding: 9px 16px;
+    border-radius: 999px;
+    background: var(--white);
+    border: 1.5px solid rgba(0,0,0,0.07);
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--ink-soft);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+  }
+  .baby-tab.active {
+    background: var(--coral);
+    border-color: var(--coral);
+    color: var(--white);
+    box-shadow: var(--shadow-coral);
+  }
+  .baby-tab .tab-badge {
+    font-size: 11px;
+    background: rgba(0,0,0,0.08);
+    border-radius: 999px;
+    padding: 1px 7px;
+    font-weight: 700;
+  }
+  .baby-tab.active .tab-badge { background: rgba(255,255,255,0.25); }
+  .baby-tab.tab-done { border-color: var(--teal-light); }
+  .baby-tab.tab-done.active { background: var(--teal); border-color: var(--teal); }
+
+  .baby-cat-title {
+    font-family: 'Fraunces', serif;
+    font-size: 20px;
+    font-weight: 500;
+    margin: 24px 0 4px;
+  }
+  .baby-cat-hint {
+    font-size: 12px;
+    color: var(--ink-mute);
+    margin-bottom: 14px;
+  }
+
+  /* Item rows */
+  .baby-pane { display: none; }
+  .baby-pane.active { display: block; animation: fadeUp 0.4s ease; }
+
+  .baby-item {
+    background: var(--white);
+    border-radius: var(--radius-md);
+    padding: 12px 14px;
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border: 1.5px solid transparent;
+    transition: border-color 0.3s ease, background 0.3s ease;
+  }
+  .baby-item.done {
+    border-color: var(--gold);
+    background: linear-gradient(180deg, rgba(244,211,94,0.12), var(--white));
+  }
+  .baby-item-main { flex: 1; min-width: 0; }
+  .baby-item-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+  .baby-item-name .check {
+    color: var(--teal-light);
+    font-size: 15px;
+    opacity: 0;
+    transform: scale(0.4);
+    transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  .baby-item.done .baby-item-name .check { opacity: 1; transform: scale(1); }
+  .baby-item-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 7px;
+  }
+  .baby-meta-label {
+    font-size: 11px;
+    color: var(--ink-mute);
+    font-weight: 600;
+  }
+  .baby-meta-input {
+    width: 44px;
+    padding: 4px 6px;
+    border: 1.5px solid rgba(0,0,0,0.1);
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    text-align: center;
+    color: var(--coral-dark);
+    background: var(--cream-warm);
+    -moz-appearance: textfield;
+  }
+  .baby-meta-input::-webkit-outer-spin-button,
+  .baby-meta-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+  .baby-meta-input:focus { outline: none; border-color: var(--coral); }
+
+  /* Stepper */
+  .baby-stepper {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    background: var(--cream-warm);
+    border-radius: 999px;
+    padding: 3px;
+    flex: 0 0 auto;
+  }
+  .baby-step-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: none;
+    background: var(--white);
+    color: var(--coral);
+    font-size: 19px;
+    font-weight: 700;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.1s ease;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  .baby-step-btn:active { transform: scale(0.88); }
+  .baby-step-btn.minus { color: var(--ink-mute); }
+  .baby-step-count {
+    min-width: 40px;
+    text-align: center;
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .baby-item.done .baby-step-count { color: var(--teal); }
+
+  /* Enxoval checklist */
+  .baby-check {
+    background: var(--white);
+    border-radius: var(--radius-md);
+    padding: 14px;
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 9px;
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    cursor: pointer;
+    border: 1.5px solid transparent;
+    transition: all 0.25s ease;
+  }
+  .baby-check.has {
+    border-color: var(--teal-light);
+    background: linear-gradient(180deg, rgba(44,128,137,0.08), var(--white));
+  }
+  .baby-check-box {
+    width: 26px;
+    height: 26px;
+    border-radius: 8px;
+    border: 2px solid rgba(0,0,0,0.18);
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    font-size: 15px;
+    font-weight: 700;
+    transition: all 0.2s ease;
+  }
+  .baby-check.has .baby-check-box {
+    background: var(--teal-light);
+    border-color: var(--teal-light);
+  }
+  .baby-check-name {
+    flex: 1;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .baby-check.has .baby-check-name { color: var(--teal); }
+  .baby-badge-has {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 700;
+    color: var(--teal);
+    background: rgba(44,128,137,0.12);
+    padding: 3px 9px;
+    border-radius: 999px;
+  }
+
+  /* Maternidade cards */
+  .baby-mat {
+    background: var(--white);
+    border-radius: var(--radius-md);
+    padding: 14px 16px;
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .baby-mat-dot {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    flex: 0 0 auto;
+    box-shadow: inset 0 0 0 2px rgba(0,0,0,0.06);
+  }
+  .baby-mat-main { flex: 1; }
+  .baby-mat-day {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .baby-mat-color-input {
+    border: none;
+    border-bottom: 1.5px dashed rgba(0,0,0,0.18);
+    background: transparent;
+    font-family: inherit;
+    font-size: 13px;
+    color: var(--ink-soft);
+    padding: 2px 0;
+    margin-top: 3px;
+    width: 100%;
+  }
+  .baby-mat-color-input:focus { outline: none; border-bottom-color: var(--coral); }
+  .baby-mat-toggle {
+    flex: 0 0 auto;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 7px 12px;
+    border-radius: 999px;
+    border: 1.5px solid rgba(0,0,0,0.1);
+    background: var(--white);
+    color: var(--ink-mute);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .baby-mat-toggle.ready {
+    background: var(--teal);
+    border-color: var(--teal);
+    color: var(--white);
+  }
+
+  .baby-note {
+    font-size: 12px;
+    color: var(--ink-mute);
+    line-height: 1.6;
+    background: rgba(244,211,94,0.16);
+    border-radius: var(--radius-sm);
+    padding: 12px 14px;
+    margin: 14px 0 4px;
+  }
+  .baby-add-row {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+  }
+  .baby-add-input {
+    flex: 1;
+    padding: 11px 14px;
+    border: 1.5px solid rgba(0,0,0,0.1);
+    border-radius: var(--radius-sm);
+    font-family: inherit;
+    font-size: 14px;
+    background: var(--white);
+  }
+  .baby-add-input:focus { outline: none; border-color: var(--coral); }
+  .baby-add-btn {
+    flex: 0 0 auto;
+    padding: 0 18px;
+    border-radius: var(--radius-sm);
+    border: none;
+    background: var(--coral);
+    color: var(--white);
+    font-family: inherit;
+    font-size: 20px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  /* Confetti */
+  .confetti-piece {
+    position: fixed;
+    top: -20px;
+    font-size: 20px;
+    pointer-events: none;
+    z-index: 9999;
+    will-change: transform, opacity;
+    animation: confetti-fall linear forwards;
+  }
+  @keyframes confetti-fall {
+    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(105vh) rotate(720deg); opacity: 0; }
+  }
+
+  /* Toast */
+  .baby-toast {
+    position: fixed;
+    left: 50%;
+    bottom: calc(28px + var(--safe-bottom));
+    transform: translateX(-50%) translateY(140%);
+    background: var(--ink);
+    color: var(--white);
+    padding: 13px 22px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 700;
+    box-shadow: var(--shadow-lg);
+    z-index: 10000;
+    transition: transform 0.45s cubic-bezier(0.34,1.56,0.64,1);
+    white-space: nowrap;
+  }
+  .baby-toast.show { transform: translateX(-50%) translateY(0); }
 </style>
 </head>
 <body>
@@ -1489,6 +1913,9 @@
     </button>
     <button class="nav-item" data-section="family">
       <span class="nav-icon">👨‍👩‍👦</span> Família
+    </button>
+    <button class="nav-item" data-section="baby">
+      <span class="nav-icon">👶</span> Casquinha
     </button>
   </nav>
 
@@ -2469,7 +2896,51 @@
   </div>
 </section>
 
+<!-- CASQUINHA — ENXOVAL DA BEBÊ -->
+<section class="section" id="baby">
+  <div class="section-eyebrow">Chegando em outubro 🍼</div>
+  <h1 class="section-title">Enxoval da <em>Casquinha</em></h1>
+  <p class="section-subtitle">Controle de compras · toque em − e + conforme for comprando</p>
+
+  <div class="baby-hero">
+    <div class="baby-hero-label">Lista de compras</div>
+    <div class="baby-hero-title">Tudo pra Casquinha</div>
+    <div class="baby-hero-sub">Defina a <strong>meta</strong> de cada peça e marque o que já comprou. Quando bater a meta, tem comemoração! 🎉</div>
+  </div>
+
+  <div class="baby-overall">
+    <div class="baby-overall-top">
+      <strong>Progresso geral</strong>
+      <span id="babyOverallTxt">0%</span>
+    </div>
+    <div class="baby-bar"><div class="baby-bar-fill" id="babyOverallBar"></div></div>
+  </div>
+
+  <h2 class="baby-cat-title">👗 Roupinhas por tamanho</h2>
+  <div class="baby-cat-hint">Escolha o tamanho e ajuste meta / quantidade comprada</div>
+  <div class="baby-tabs" id="babyTabs"></div>
+  <div id="babyPanes"></div>
+
+  <h2 class="baby-cat-title">🧺 Enxoval</h2>
+  <div class="baby-cat-hint">Toque para marcar o que já tem em casa</div>
+  <div id="babyEnxoval"></div>
+  <div class="baby-add-row">
+    <input class="baby-add-input" id="babyEnxAdd" placeholder="Adicionar item ao enxoval…">
+    <button class="baby-add-btn" id="babyEnxAddBtn">+</button>
+  </div>
+
+  <h2 class="baby-cat-title">🏥 Maternidade</h2>
+  <div class="baby-cat-hint">Looks separados para os dias na maternidade · toque na cor para editar</div>
+  <div id="babyMat"></div>
+
+  <div class="baby-note">
+    💡 Tudo é editável e fica salvo neste aparelho automaticamente. Os números em azul do papel foram preenchidos como meta inicial — os que ficaram em branco é só você completar aqui.
+  </div>
+</section>
+
 </main>
+
+<div class="baby-toast" id="babyToast"></div>
 
 <script>
   /* ============================================
@@ -2731,6 +3202,263 @@
     drawer.style.transform = '';
     if (delta < -80) closeDrawer();
   });
+
+  /* ============================================
+     CASQUINHA — ENXOVAL DA BEBÊ
+     ============================================ */
+  (function () {
+    const SIZES = ['NewBorn', '03-06', '06-09', '09-12', '12 m', '12-18'];
+
+    // Roupas: t = metas lidas do papel (números azuis). Em branco = para você preencher.
+    const CLOTHES = [
+      { name: 'Body sem manga',         t: {} },
+      { name: 'Body manga curta',       t: { 'NewBorn': 3, '03-06': 3, '06-09': 5, '09-12': 5 } },
+      { name: 'Body manga longa',       t: { '06-09': 5, '09-12': 6 } },
+      { name: 'Calça com pé',           t: {} },
+      { name: 'Calça sem pé',           t: { 'NewBorn': 3, '03-06': 3, '06-09': 5, '09-12': 5 } },
+      { name: 'Macacão com pé',         t: { 'NewBorn': 2, '03-06': 2, '06-09': 3, '09-12': 3 } },
+      { name: 'Macacão com pé · quente',t: {} },
+      { name: 'Meia',                   t: {} },
+      { name: 'Babador',                t: {} },
+      { name: 'Vestido sem manga',      t: {} },
+      { name: 'Vestido com manga',      t: {} },
+      { name: 'Macacão passear curto',  t: {} },
+      { name: 'Macacão passear comp.',  t: {} },
+      { name: 'Conjunto short',         t: {} },
+      { name: 'Conjunto bermuda',       t: {} },
+      { name: 'Conjunto calça',         t: {} },
+      { name: 'Calça de sair',          t: {} },
+      { name: 'Casaco',                 t: {} },
+    ];
+
+    const ENXOVAL_DEFAULT = [
+      { name: 'Fralda branca', has: false },
+      { name: 'Pano pequeno', has: true },
+      { name: 'Pano de ombro', has: false },
+      { name: 'Pano grande', has: false },
+      { name: 'Toalha de banho', has: false },
+      { name: 'Cueiro flanela', has: true },
+      { name: 'Manta', has: false },
+      { name: 'Lenço de berço', has: false },
+      { name: 'Lençol mini-berço', has: false },
+      { name: 'Lençol carinho', has: false },
+    ];
+
+    const MAT_DEFAULT = [
+      { day: 'Dia 1', color: 'Amarelo', hex: '#F4D35E' },
+      { day: 'Dia 2', color: 'Rosa', hex: '#FFB5A7' },
+      { day: 'Dia 3 · saída', color: 'Vermelho', hex: '#E94F37' },
+    ];
+
+    const KEY = 'casquinha_v1';
+    let state = load();
+
+    function load() {
+      try {
+        const s = JSON.parse(localStorage.getItem(KEY));
+        if (s && s.clothes) return s;
+      } catch (e) {}
+      // build fresh
+      const clothes = {};
+      CLOTHES.forEach(it => {
+        clothes[it.name] = {};
+        SIZES.forEach(sz => {
+          clothes[it.name][sz] = { meta: it.t[sz] ?? 0, bought: 0 };
+        });
+      });
+      return {
+        clothes,
+        enxoval: ENXOVAL_DEFAULT.map(e => ({ ...e })),
+        mat: MAT_DEFAULT.map(m => ({ ...m, ready: false })),
+      };
+    }
+
+    function save() { localStorage.setItem(KEY, JSON.stringify(state)); }
+
+    /* ---------- Celebration ---------- */
+    const toastEl = document.getElementById('babyToast');
+    let toastTimer;
+    function toast(msg) {
+      toastEl.textContent = msg;
+      toastEl.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toastEl.classList.remove('show'), 2600);
+    }
+    function confetti(big) {
+      const emojis = ['🎉', '🎊', '👶', '🍼', '⭐', '💛', '🩷'];
+      const n = big ? 60 : 26;
+      for (let i = 0; i < n; i++) {
+        const p = document.createElement('div');
+        p.className = 'confetti-piece';
+        p.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        p.style.left = Math.random() * 100 + 'vw';
+        p.style.fontSize = (14 + Math.random() * 18) + 'px';
+        const dur = 2.2 + Math.random() * 1.8;
+        p.style.animationDuration = dur + 's';
+        p.style.animationDelay = (Math.random() * 0.3) + 's';
+        document.body.appendChild(p);
+        setTimeout(() => p.remove(), (dur + 0.5) * 1000);
+      }
+    }
+
+    /* ---------- Build size tabs ---------- */
+    const tabsEl = document.getElementById('babyTabs');
+    const panesEl = document.getElementById('babyPanes');
+    let activeSize = SIZES[0];
+
+    function metasDoneInSize(sz) {
+      let done = 0, total = 0;
+      CLOTHES.forEach(it => {
+        const c = state.clothes[it.name][sz];
+        if (c.meta > 0) { total++; if (c.bought >= c.meta) done++; }
+      });
+      return { done, total };
+    }
+
+    function renderTabs() {
+      tabsEl.innerHTML = '';
+      SIZES.forEach(sz => {
+        const { done, total } = metasDoneInSize(sz);
+        const btn = document.createElement('button');
+        btn.className = 'baby-tab' + (sz === activeSize ? ' active' : '') +
+          (total > 0 && done === total ? ' tab-done' : '');
+        btn.innerHTML = `${sz} <span class="tab-badge">${done}/${total}</span>`;
+        btn.addEventListener('click', () => { activeSize = sz; renderTabs(); renderPanes(); });
+        tabsEl.appendChild(btn);
+      });
+    }
+
+    function renderPanes() {
+      panesEl.innerHTML = '';
+      const pane = document.createElement('div');
+      pane.className = 'baby-pane active';
+      CLOTHES.forEach(it => {
+        const c = state.clothes[it.name][activeSize];
+        const done = c.meta > 0 && c.bought >= c.meta;
+        const row = document.createElement('div');
+        row.className = 'baby-item' + (done ? ' done' : '');
+        row.innerHTML = `
+          <div class="baby-item-main">
+            <div class="baby-item-name">${it.name} <span class="check">✓</span></div>
+            <div class="baby-item-meta-row">
+              <span class="baby-meta-label">Meta</span>
+              <input class="baby-meta-input" type="number" min="0" inputmode="numeric" value="${c.meta || ''}" placeholder="–">
+            </div>
+          </div>
+          <div class="baby-stepper">
+            <button class="baby-step-btn minus" aria-label="menos">−</button>
+            <span class="baby-step-count">${c.bought}</span>
+            <button class="baby-step-btn plus" aria-label="mais">+</button>
+          </div>`;
+        const metaInput = row.querySelector('.baby-meta-input');
+        const countEl = row.querySelector('.baby-step-count');
+        metaInput.addEventListener('change', () => {
+          c.meta = Math.max(0, parseInt(metaInput.value) || 0);
+          save(); refreshRow(); renderTabs(); updateOverall();
+        });
+        row.querySelector('.plus').addEventListener('click', () => {
+          const was = done;
+          c.bought++;
+          save(); refreshRow(); renderTabs(); updateOverall();
+          if (!was && c.meta > 0 && c.bought >= c.meta) celebrateMeta(it.name);
+        });
+        row.querySelector('.minus').addEventListener('click', () => {
+          c.bought = Math.max(0, c.bought - 1);
+          save(); refreshRow(); renderTabs(); updateOverall();
+        });
+        function refreshRow() {
+          countEl.textContent = c.bought;
+          const d = c.meta > 0 && c.bought >= c.meta;
+          row.classList.toggle('done', d);
+        }
+        pane.appendChild(row);
+      });
+      panesEl.appendChild(pane);
+    }
+
+    function celebrateMeta(itemName) {
+      confetti(false);
+      toast('Meta batida: ' + itemName + ' 🎉');
+      // Tamanho inteiro completo?
+      const { done, total } = metasDoneInSize(activeSize);
+      if (total > 0 && done === total) {
+        setTimeout(() => { confetti(true); toast('Tamanho ' + activeSize + ' completo! 🌟'); }, 700);
+      }
+    }
+
+    /* ---------- Enxoval ---------- */
+    const enxEl = document.getElementById('babyEnxoval');
+    function renderEnxoval() {
+      enxEl.innerHTML = '';
+      state.enxoval.forEach((item, idx) => {
+        const row = document.createElement('div');
+        row.className = 'baby-check' + (item.has ? ' has' : '');
+        row.innerHTML = `
+          <div class="baby-check-box">${item.has ? '✓' : ''}</div>
+          <div class="baby-check-name">${item.name}</div>
+          ${item.has ? '<span class="baby-badge-has">Já tem</span>' : ''}`;
+        row.addEventListener('click', () => {
+          item.has = !item.has;
+          save(); renderEnxoval();
+          if (item.has) confetti(false);
+        });
+        enxEl.appendChild(row);
+      });
+    }
+    document.getElementById('babyEnxAddBtn').addEventListener('click', addEnx);
+    document.getElementById('babyEnxAdd').addEventListener('keydown', e => { if (e.key === 'Enter') addEnx(); });
+    function addEnx() {
+      const inp = document.getElementById('babyEnxAdd');
+      const v = inp.value.trim();
+      if (!v) return;
+      state.enxoval.push({ name: v, has: false });
+      inp.value = '';
+      save(); renderEnxoval();
+    }
+
+    /* ---------- Maternidade ---------- */
+    const matEl = document.getElementById('babyMat');
+    function renderMat() {
+      matEl.innerHTML = '';
+      state.mat.forEach(m => {
+        const card = document.createElement('div');
+        card.className = 'baby-mat';
+        card.innerHTML = `
+          <div class="baby-mat-dot" style="background:${m.hex}"></div>
+          <div class="baby-mat-main">
+            <div class="baby-mat-day">${m.day}</div>
+            <input class="baby-mat-color-input" value="${m.color}" placeholder="cor / look…">
+          </div>
+          <button class="baby-mat-toggle${m.ready ? ' ready' : ''}">${m.ready ? '✓ Pronto' : 'Separar'}</button>`;
+        const inp = card.querySelector('.baby-mat-color-input');
+        inp.addEventListener('change', () => { m.color = inp.value; save(); });
+        card.querySelector('.baby-mat-toggle').addEventListener('click', () => {
+          m.ready = !m.ready; save(); renderMat();
+          if (m.ready) confetti(false);
+        });
+        matEl.appendChild(card);
+      });
+    }
+
+    /* ---------- Overall progress ---------- */
+    function updateOverall() {
+      let done = 0, total = 0;
+      CLOTHES.forEach(it => SIZES.forEach(sz => {
+        const c = state.clothes[it.name][sz];
+        if (c.meta > 0) { total++; if (c.bought >= c.meta) done++; }
+      }));
+      const pct = total ? Math.round(done / total * 100) : 0;
+      document.getElementById('babyOverallBar').style.width = pct + '%';
+      document.getElementById('babyOverallTxt').textContent =
+        total ? `${done}/${total} metas · ${pct}%` : 'Defina metas';
+    }
+
+    renderTabs();
+    renderPanes();
+    renderEnxoval();
+    renderMat();
+    updateOverall();
+  })();
 </script>
 
 </body>
