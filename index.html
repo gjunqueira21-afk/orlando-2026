@@ -1213,6 +1213,99 @@
     color: white;
   }
 
+  .strategy-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 12px;
+    padding: 10px 16px;
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(10px);
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 700;
+    color: white;
+    border: 1.5px solid rgba(255,255,255,0.3);
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.2s ease;
+  }
+  .strategy-toggle:active { background: rgba(255,255,255,0.28); }
+  .strategy-toggle .st-arrow {
+    font-size: 12px;
+    transition: transform 0.3s ease;
+    display: inline-block;
+  }
+  .strategy-toggle.open .st-arrow { transform: rotate(180deg); }
+
+  .strategy-panel {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.45s cubic-bezier(0.16,1,0.3,1);
+    margin-top: 0;
+  }
+  .strategy-panel.open { max-height: 2400px; }
+  .strategy-inner {
+    background: rgba(0,0,0,0.18);
+    backdrop-filter: blur(8px);
+    border-radius: var(--radius-md);
+    padding: 16px;
+    margin-top: 12px;
+    color: rgba(255,255,255,0.95);
+  }
+  .st-block { margin-bottom: 14px; }
+  .st-block:last-child { margin-bottom: 0; }
+  .st-time {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    opacity: 0.7;
+    margin-bottom: 4px;
+  }
+  .st-title {
+    font-family: 'Fraunces', serif;
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 6px;
+  }
+  .st-items { list-style: none; padding: 0; margin: 0; }
+  .st-items li {
+    font-size: 13px;
+    line-height: 1.6;
+    padding: 2px 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 7px;
+  }
+  .st-items li::before { content: '✅'; font-size: 12px; flex: 0 0 auto; margin-top: 2px; }
+  .st-items li.ll::before { content: '🎟️'; }
+  .st-items li.star::before { content: '⭐'; }
+  .st-items li.tip::before { content: '💡'; }
+  .st-items li.note::before { content: '📍'; }
+  .st-items li.alert::before { content: '⚠️'; }
+  .st-divider {
+    border: none;
+    border-top: 1px solid rgba(255,255,255,0.2);
+    margin: 12px 0;
+  }
+  .st-ll-box {
+    background: rgba(255,255,255,0.12);
+    border-radius: 10px;
+    padding: 10px 12px;
+    margin: 8px 0;
+    font-size: 13px;
+  }
+  .st-ll-box strong { display: block; margin-bottom: 4px; font-size: 12px; opacity: 0.7; text-transform: uppercase; letter-spacing: 0.08em; }
+  .st-ll-item { display: flex; align-items: center; gap: 7px; margin: 3px 0; }
+  .st-ll-num {
+    width: 20px; height: 20px; border-radius: 50%;
+    background: rgba(255,255,255,0.25);
+    font-size: 11px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex: 0 0 auto;
+  }
+
   /* ============================================
      WORLD CUP
      ============================================ */
@@ -2391,7 +2484,105 @@
       <li>Parada e fogos: cheque horário no app My Disney Experience</li>
       <li>Almoço: Be Our Guest ou Skipper Canteen (reserva)</li>
     </ul>
-    <a href="https://www.google.com/maps/dir/?api=1&origin=2440+Sweetwater+Club+Circle+Kissimmee+FL&destination=Magic+Kingdom+Park" target="_blank" class="disney-btn">📍 Rota no mapa</a>
+
+    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:4px;">
+      <a href="https://www.google.com/maps/dir/?api=1&origin=2440+Sweetwater+Club+Circle+Kissimmee+FL&destination=Magic+Kingdom+Park" target="_blank" class="disney-btn">📍 Rota no mapa</a>
+      <button class="strategy-toggle" data-target="st-mk">📋 Estratégia do dia <span class="st-arrow">▼</span></button>
+    </div>
+
+    <div class="strategy-panel" id="st-mk">
+      <div class="strategy-inner">
+        <div class="st-block">
+          <div class="st-time">🎟️ Lightning Lane Multi Pass · comprar às 07h do dia</div>
+        </div>
+        <hr class="st-divider">
+        <div class="st-block">
+          <div class="st-time">09:00 — Entrada</div>
+          <ul class="st-items"><li>Seguir direto para <strong>Fantasyland</strong></li></ul>
+        </div>
+        <div class="st-block">
+          <div class="st-time">09:15 – 10:45 · Fantasyland</div>
+          <ul class="st-items">
+            <li>Prince Charming Regal Carrousel</li>
+            <li>Dumbo the Flying Elephant</li>
+            <li>The Barnstormer <span style="opacity:.7">(min. 89 cm — Nico deve passar)</span></li>
+            <li>Under the Sea — Journey of the Little Mermaid</li>
+            <li class="ll">LL #1 · <strong>Peter Pan's Flight</strong> · reservar a próxima logo após usar</li>
+          </ul>
+        </div>
+        <div class="st-block">
+          <div class="st-time">10:45 – 12:00</div>
+          <ul class="st-items">
+            <li>It's a Small World</li>
+            <li class="ll">LL #2 · <strong>The Many Adventures of Winnie the Pooh</strong></li>
+            <li>Mickey's PhilharMagic <span style="opacity:.7">(ótima pausa no ar-condicionado)</span></li>
+          </ul>
+        </div>
+        <div class="st-block">
+          <div class="st-time">12:00 – 13:00</div>
+          <ul class="st-items">
+            <li class="note">Foto com Mickey — Town Square Theater <span style="opacity:.7">(antes do almoço, fila menor)</span></li>
+          </ul>
+        </div>
+        <div class="st-block">
+          <div class="st-time">13:00 – 14:00 · Almoço</div>
+          <ul class="st-items">
+            <li class="note">Columbia Harbour House</li>
+            <li class="note">ou Cosmic Ray's Starlight Cafe</li>
+          </ul>
+        </div>
+        <div class="st-block">
+          <div class="st-time">14:00 – 15:00 · Tomorrowland</div>
+          <ul class="st-items">
+            <li class="ll">LL #3 · <strong>Buzz Lightyear's Space Ranger Spin</strong></li>
+            <li>Tomorrowland Transit Authority PeopleMover</li>
+          </ul>
+        </div>
+        <div class="st-block">
+          <div class="st-time">15:00 – 15:45 · Adventureland</div>
+          <ul class="st-items">
+            <li class="ll">Tentar LL Jungle Cruise · se não conseguir:</li>
+            <li>Pirates of the Caribbean</li>
+          </ul>
+        </div>
+        <div class="st-block">
+          <div class="st-time">16:00 · PARADA 🎉</div>
+          <ul class="st-items">
+            <li class="alert">Chegar 30 min antes · posição entre o Castelo e a Main Street</li>
+            <li>Boa visão pro Nico · fotos lindas · menos deslocamento</li>
+          </ul>
+        </div>
+        <div class="st-block">
+          <div class="st-time">17:00 – 18:30</div>
+          <ul class="st-items">
+            <li>Walt Disney World Railroad</li>
+            <li>Liberty Square Riverboat <span style="opacity:.7">(se estiver funcionando)</span></li>
+            <li>Haunted Mansion <span style="opacity:.7">(só se o Nico não se assustar)</span></li>
+          </ul>
+        </div>
+        <div class="st-block">
+          <div class="st-time">18:30 – 19:30 · Favoritos do Nico</div>
+          <ul class="st-items">
+            <li class="star">Dumbo · Carrossel · Pooh · Pequena Sereia</li>
+          </ul>
+        </div>
+        <hr class="st-divider">
+        <div class="st-block">
+          <div class="st-title">⭐ Top 10 imperdíveis do Nico</div>
+          <ul class="st-items">
+            <li class="star">Peter Pan · Dumbo · Winnie the Pooh · Carrossel</li>
+            <li class="star">Small World · Buzz Lightyear · Foto com Mickey</li>
+            <li class="star">Mickey's PhilharMagic · Parada · Castelo ao entardecer</li>
+          </ul>
+        </div>
+        <div class="st-block">
+          <ul class="st-items">
+            <li class="tip">Se Nico cochilar no carrinho após o almoço: aproveite para Jungle Cruise, Pirates, fotos no Castelo e reservar as próximas LLs</li>
+          </ul>
+        </div>
+        <div style="font-size:12px;opacity:.7;text-align:center;margin-top:8px;">Objetivo do dia: criar memórias mágicas para o Nico ❤️🏰</div>
+      </div>
+    </div>
   </div>
 
   <div class="disney-card animal">
@@ -2411,7 +2602,39 @@
       <li>Expedition Everest: para os adolescentes</li>
       <li>Festival of the Lion King: show imperdível</li>
     </ul>
-    <a href="https://www.google.com/maps/dir/?api=1&origin=2440+Sweetwater+Club+Circle+Kissimmee+FL&destination=Disney's+Animal+Kingdom" target="_blank" class="disney-btn">📍 Rota no mapa</a>
+
+    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:4px;">
+      <a href="https://www.google.com/maps/dir/?api=1&origin=2440+Sweetwater+Club+Circle+Kissimmee+FL&destination=Disney's+Animal+Kingdom" target="_blank" class="disney-btn">📍 Rota no mapa</a>
+      <button class="strategy-toggle" data-target="st-ak">📋 Estratégia do dia <span class="st-arrow">▼</span></button>
+    </div>
+
+    <div class="strategy-panel" id="st-ak">
+      <div class="strategy-inner">
+        <div class="st-block">
+          <div class="st-time">🎟️ Lightning Lane Multi Pass · comprar às 07h do dia</div>
+        </div>
+        <div class="st-ll-box">
+          <strong>Prioridades de LL</strong>
+          <div class="st-ll-item"><span class="st-ll-num">1</span> Kilimanjaro Safaris</div>
+          <div class="st-ll-item"><span class="st-ll-num">2</span> Na'vi River Journey</div>
+          <div class="st-ll-item"><span class="st-ll-num">3</span> Festival of the Lion King</div>
+        </div>
+        <hr class="st-divider">
+        <div class="st-block">
+          <div class="st-title">Objetivos do dia</div>
+          <ul class="st-items">
+            <li>☕ Café com personagens no <strong>Tusker House</strong> — 08:50</li>
+            <li>Kilimanjaro Safaris</li>
+            <li>Bluey</li>
+            <li>Trem para Rafiki's Planet Watch</li>
+            <li>Trilha dos gorilas</li>
+            <li>Finding Nemo — The Big Blue… and Beyond!</li>
+            <li>The Boneyard</li>
+            <li>Festival do Rei Leão</li>
+          </ul>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="disney-card springs">
@@ -3197,6 +3420,18 @@
     const delta = touchCurrentX - touchStartX;
     drawer.style.transform = '';
     if (delta < -80) closeDrawer();
+  });
+
+  /* ============================================
+     ESTRATÉGIA DISNEY — accordion
+     ============================================ */
+  document.querySelectorAll('.strategy-toggle').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const panel = document.getElementById(btn.dataset.target);
+      const isOpen = panel.classList.contains('open');
+      panel.classList.toggle('open', !isOpen);
+      btn.classList.toggle('open', !isOpen);
+    });
   });
 
   /* ============================================
